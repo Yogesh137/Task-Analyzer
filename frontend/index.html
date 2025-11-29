@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Task Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header><h1>Smart Task Analyzer</h1></header>
+
+    <main class="main-grid">
+      <section class="left">
+        <h2>Input Tasks</h2>
+
+        <label for="strategy">Sorting Strategy</label>
+        <select id="strategy">
+          <option value="smart_balance">Smart Balance</option>
+          <option value="fastest_wins">Fastest Wins</option>
+          <option value="high_impact">High Impact</option>
+          <option value="deadline_driven">Deadline Driven</option>
+        </select>
+
+        <h3>Add single task</h3>
+        <form id="taskForm">
+          <input id="title" placeholder="Title" required />
+          <input id="due_date" placeholder="Due date (YYYY-MM-DD)" />
+          <input id="importance" placeholder="Importance (1-10)" />
+          <input id="estimated_hours" placeholder="Estimated hours" />
+          <input id="deps" placeholder="Dependencies (comma separated IDs)" />
+          <button type="button" id="addTaskBtn">Add to list</button>
+        </form>
+
+        <h3>Or paste JSON array</h3>
+        <textarea id="taskInput" placeholder='[{"id":1,"title":"..."}]' rows="8"></textarea>
+        <div class="controls">
+          <button id="analyzeBtn">Analyze Tasks</button>
+          <button id="clearBtn">Clear</button>
+        </div>
+        <div id="message" role="status"></div>
+      </section>
+
+      <section class="right">
+        <h2>Results</h2>
+        <div id="results"></div>
+      </section>
+    </main>
+    <footer>
+      <small>Local version — uses Django API at <code>/api/tasks/analyze/</code></small>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

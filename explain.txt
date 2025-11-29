@@ -1,0 +1,37 @@
+The scoring algorithm produces a numeric priority where a higher value means higher priority. 
+It combines four factors: urgency, importance, effort, and dependencies.
+
+Urgency examines how soon a task is due. 
+Overdue tasks receive a large boost (because they must be addressed immediately). 
+Tasks due within one day get a strong boost; within three days a moderate boost; 
+beyond that, a small decaying urgency value is applied. 
+This design ensures immediate deadlines bubble to the top while not completely ignoring larger-dated items.
+
+Importance is a user-specified 1–10 rating. 
+Importance is scaled and multiplied to influence the final score strongly. 
+In the "High Impact" strategy, importance receives additional weighting.
+
+Effort (Estimated Hours) encourages "quick wins": 
+tasks with estimated hours ≤ 1 receive a bonus, and those ≤ 3 receive a smaller bonus. 
+Large tasks receive a slight penalty to reflect the practical cost of committing time. 
+The "Fastest Wins" strategy increases the quick-win bonus to favor small tasks more aggressively.
+
+Dependencies are handled by penalizing tasks with unresolved dependencies; 
+a task that cannot be started because the tasks it depends on are incomplete receives a meaningful penalty. 
+This prevents suggesting tasks that are blocked. 
+Additionally, the system attempts to detect circular dependencies using DFS cycle detection; 
+when cycles are present, they are returned in the API so the user can resolve them manually.
+
+The algorithm supports four strategies:
+
+Smart Balance: default combined weighting.
+
+Fastest Wins: favors low-effort tasks.
+
+High Impact: heavily emphasizes importance.
+
+Deadline Driven: heavily emphasizes due dates.
+
+All weighting choices are intentionally tunable in tasks/scoring.py. 
+Trade-offs: aggressively promoting quick wins helps productivity but risks deprioritizing important long-term work. 
+The README documents these trade-offs and suggests exposing weights to users as a future improvement.
