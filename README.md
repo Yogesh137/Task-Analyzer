@@ -27,4 +27,3 @@ A small Django-based application that scores and prioritizes tasks. It accepts a
 [{
   "id":"1","title":"Finish report","due_date":"2025-11-30","importance":8,"estimated_hours":3,"dependencies":[]
 }]
-
